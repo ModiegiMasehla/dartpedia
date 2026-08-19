@@ -3,21 +3,16 @@ import 'dart:io';
 
 
 //variable for the version
-const version = '0.0.1'; 
+const version = '0.0.1';
 
-//main function checks for version argument
 void main(List<String> arguments) {
-  if (arguments.isEmpty || arguments.first == 'help') {
-    printUsage();
+  if (arguments.isEmpty) {
+    print('Hello, Dart!');
   } else if (arguments.first == 'version') {
     print('Dartpedia CLI version $version');
-  } else if (arguments.first == 'search') {
-     final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
-     searchWikipedia(inputArgs);
-  } else {
-    printUsage();
   }
 }
+
 
 //search command running the core logic of the application
 
