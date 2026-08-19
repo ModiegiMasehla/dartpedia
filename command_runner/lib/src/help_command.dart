@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:command_runner/command_runner.dart';
+import 'console.dart';
+import 'exceptions.dart';
 
 import 'arguments.dart';
 
@@ -26,6 +29,7 @@ class HelpCommand extends Command {
       "When a command is passed as an argument, prints only that command's verbose usage.",
     );
   }
+
   @override
   String get name => 'help';
 
@@ -36,12 +40,49 @@ class HelpCommand extends Command {
   String? get help => 'Prints this usage information';
 
   @override
-  FutureOr<Object?> run(ArgResults args) async {
-    var usage = runner.usage;
-    for (var command in runner.commands) {
-      usage += '\n ${command.usage}';
+  FutureOr<String> run(ArgResults args) async {
+    final buffer = StringBuffer();
+    buffer.writeln(runner.usage.titleText);
+
+    if (args.flag('verbose')) {
+      for (var cmd in runner.commands) {
+        buffer.write(_renderCommandVerbose(cmd));
+      }
+      return buffer.toString();
     }
 
-    return usage;
+    if (args.hasOption('command')) {
+      var (:option, :input) = args.getOption('command');
+
+      var cmd = runner.commands.firstWhere(
+            (command) => command.name == input,
+        orElse: () {
+          throw ArgumentException(
+            'Input $input is not a known command.',
+            name,
+          );
+        },
+      );
+
+      return _renderCommandVerbose(cmd);
+    }
+
+    // Verbose is false and no arg was passed in, so print basic usage.
+    for (var command in runner.commands) {
+      buffer.writeln(command.usage);
+    }
+
+    return buffer.toString();
+  }
+
+  String _renderCommandVerbose(Command cmd) {
+    final buffer = StringBuffer();
+    buffer.writeln('${cmd.name}: ${cmd.description}');
+    for (var option in cmd.options) {
+      final abbr = option.abbr != null ? ', -${option.abbr}' : '';
+      buffer.writeln('  --${option.name}$abbr    ${option.help ?? ''}');
+    }
+    buffer.writeln();
+    return buffer.toString();
   }
 }
