@@ -5,16 +5,20 @@ import 'dart:io';
 //variable for the version
 const version = '0.0.1';
 
+//implementing help command refined main
 void main(List<String> arguments) {
-  if (arguments.isEmpty) {
-    print('Hello, Dart!');
+  if (arguments.isEmpty || arguments.first == 'help') {
+    printUsage(); // Change this from 'Hello, Dart!'
   } else if (arguments.first == 'version') {
     print('Dartpedia CLI version $version');
+  } else {
+    printUsage(); // Catch-all for any unrecognized command.
   }
 }
 
+
 //addinga print func
-void printUsage() { // Add this new function
+void printUsage() {
   print(
       "The following commands are valid: 'help', 'version', 'search <ARTICLE-TITLE>'"
   );
