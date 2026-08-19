@@ -5,27 +5,21 @@ import 'dart:io';
 //variable for the version
 const version = '0.0.1';
 
-//implementing help command refined main
+//implement swearch command
 void main(List<String> arguments) {
   if (arguments.isEmpty || arguments.first == 'help') {
-    printUsage(); // Change this from 'Hello, Dart!'
+    printUsage();
   } else if (arguments.first == 'version') {
     print('Dartpedia CLI version $version');
+  } else if (arguments.first == 'search') {
+    // Add this new block:
+    final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
+    searchWikipedia(inputArgs);
   } else {
-    printUsage(); // Catch-all for any unrecognized command.
+    printUsage();
   }
 }
 
-
-//addinga print func
-void printUsage() {
-  print(
-      "The following commands are valid: 'help', 'version', 'search <ARTICLE-TITLE>'"
-  );
-}
-
-
-//search command running the core logic of the application
 
 void searchWikipedia(List<String>? arguments) {
   final String articleTitle;
@@ -44,6 +38,7 @@ void searchWikipedia(List<String>? arguments) {
   print('Here ya go!');
   print('(Pretend this is an article about "$articleTitle")');
 }
+
 
 
 
