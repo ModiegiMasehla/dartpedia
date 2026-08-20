@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:collection';
+
 import '../command_runner.dart';
 
 enum OptionType { flag, option }
-
 
 abstract class Argument {
   String get name;
@@ -20,13 +20,13 @@ abstract class Argument {
 
 class Option extends Argument {
   Option(
-      this.name, {
-        required this.type,
-        this.help,
-        this.abbr,
-        this.defaultValue,
-        this.valueHelp,
-      });
+    this.name, {
+    required this.type,
+    this.help,
+    this.abbr,
+    this.defaultValue,
+    this.valueHelp,
+  });
 
   @override
   final String name;
@@ -53,7 +53,6 @@ class Option extends Argument {
     return '--$name: $help';
   }
 }
-
 
 abstract class Command extends Argument {
   @override
@@ -95,12 +94,12 @@ abstract class Command extends Argument {
 
   // An option is an [Option] that takes a value.
   void addOption(
-      String name, {
-        String? help,
-        String? abbr,
-        String? defaultValue,
-        String? valueHelp,
-      }) {
+    String name, {
+    String? help,
+    String? abbr,
+    String? defaultValue,
+    String? valueHelp,
+  }) {
     _options.add(
       Option(
         name,
@@ -130,7 +129,7 @@ class ArgResults {
   bool flag(String name) {
     // Only check flags, because we're sure that flags are booleans.
     for (var option in options.keys.where(
-          (option) => option.type == OptionType.flag,
+      (option) => option.type == OptionType.flag,
     )) {
       if (option.name == name) {
         return options[option] as bool;
@@ -145,10 +144,9 @@ class ArgResults {
 
   ({Option option, Object? input}) getOption(String name) {
     var mapEntry = options.entries.firstWhere(
-          (entry) => entry.key.name == name || entry.key.abbr == name,
+      (entry) => entry.key.name == name || entry.key.abbr == name,
     );
 
     return (option: mapEntry.key, input: mapEntry.value);
   }
 }
-

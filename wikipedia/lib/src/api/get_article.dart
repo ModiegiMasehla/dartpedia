@@ -23,13 +23,13 @@ Future<List<Article>> getArticleByTitle(String title) async {
     final http.Response response = await client.get(url);
     if (response.statusCode == 200) {
       final Map<String, Object?> jsonData =
-      jsonDecode(response.body) as Map<String, Object?>;
+          jsonDecode(response.body) as Map<String, Object?>;
       return Article.listFromJson(jsonData);
     } else {
       throw HttpException(
         '[WikipediaApiClient.getArticleByTitle] '
-            'statusCode=${response.statusCode}, '
-            'body=${response.body}',
+        'statusCode=${response.statusCode}, '
+        'body=${response.body}',
       );
     }
   } on FormatException {

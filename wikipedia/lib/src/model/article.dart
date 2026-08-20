@@ -9,8 +9,8 @@ class Article {
     if (json case {'query': {'pages': final Map<String, Object?> pages}}) {
       for (final MapEntry<String, Object?>(:Object? value) in pages.entries) {
         if (value case {
-        'title': final String title,
-        'extract': final String extract,
+          'title': final String title,
+          'extract': final String extract,
         }) {
           articles.add(Article(title: title, extract: extract));
         }

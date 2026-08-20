@@ -15,12 +15,12 @@ Future<Summary> getRandomArticleSummary() async {
     final http.Response response = await client.get(url);
     if (response.statusCode == 200) {
       final Map<String, Object?> jsonData =
-      jsonDecode(response.body) as Map<String, Object?>;
+          jsonDecode(response.body) as Map<String, Object?>;
       return Summary.fromJson(jsonData);
     } else {
       throw HttpException(
         '[WikipediaApiClient.getRandomArticleSummary] '
-            'statusCode=${response.statusCode}, body=${response.body}',
+        'statusCode=${response.statusCode}, body=${response.body}',
       );
     }
   } on FormatException {
@@ -41,12 +41,12 @@ Future<Summary> getArticleSummaryByTitle(String articleTitle) async {
     final http.Response response = await client.get(url);
     if (response.statusCode == 200) {
       final Map<String, Object?> jsonData =
-      jsonDecode(response.body) as Map<String, Object?>;
+          jsonDecode(response.body) as Map<String, Object?>;
       return Summary.fromJson(jsonData);
     } else {
       throw HttpException(
         '[WikipediaApiClient.getArticleSummaryByTitle] '
-            'statusCode=${response.statusCode}, body=${response.body}',
+        'statusCode=${response.statusCode}, body=${response.body}',
       );
     }
   } on FormatException {

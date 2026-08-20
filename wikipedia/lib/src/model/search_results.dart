@@ -12,10 +12,10 @@ class SearchResults {
   static SearchResults fromJson(List<Object?> json) {
     final List<SearchResult> results = <SearchResult>[];
     if (json case [
-    String searchTerm,
-    Iterable articleTitles,
-    Iterable _,
-    Iterable urls,
+      String searchTerm,
+      Iterable articleTitles,
+      Iterable _,
+      Iterable urls,
     ]) {
       final List titlesList = articleTitles.toList();
       final List urlList = urls.toList();

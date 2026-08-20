@@ -16,7 +16,7 @@ Future<void> write(String text, {int duration = 50}) async {
 Future<void> _delayedPrint(String text, {int duration = 0}) async {
   return Future<void>.delayed(
     Duration(milliseconds: duration),
-        () => stdout.write(text),
+    () => stdout.write(text),
   );
 }
 
@@ -109,5 +109,3 @@ extension TextRenderUtils on String {
     return output;
   }
 }
-
-

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
+
 import 'arguments.dart';
 import 'exceptions.dart';
 
@@ -80,7 +81,7 @@ class CommandRunner {
       if (input[i].startsWith('-')) {
         var base = _removeDash(input[i]);
         var option = results.command!.options.firstWhere(
-              (option) => option.name == base || option.abbr == base,
+          (option) => option.name == base || option.abbr == base,
           orElse: () {
             throw ArgumentException(
               'Unknown option ${input[i]}',

@@ -20,9 +20,9 @@ class TitlesSet {
   /// Returns a new [TitlesSet] instance and imports its values from a JSON map
   static TitlesSet fromJson(Map<String, Object?> json) {
     if (json case {
-    'canonical': final String canonical,
-    'normalized': final String normalized,
-    'display': final String display,
+      'canonical': final String canonical,
+      'normalized': final String normalized,
+      'display': final String display,
     }) {
       return TitlesSet(
         canonical: canonical,
@@ -36,8 +36,8 @@ class TitlesSet {
   @override
   String toString() =>
       'TitlesSet['
-          'canonical=$canonical, '
-          'normalized=$normalized, '
-          'display=$display'
-          ']';
+      'canonical=$canonical, '
+      'normalized=$normalized, '
+      'display=$display'
+      ']';
 }

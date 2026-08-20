@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:command_runner/command_runner.dart';
+
 import 'console.dart';
 import 'exceptions.dart';
 
@@ -25,8 +27,7 @@ class HelpCommand extends Command {
     addOption(
       'command',
       abbr: 'c',
-      help:
-      "When a command is passed as an argument, prints only that command's verbose usage.",
+      help: "When a command is passed as an argument, prints only that command's verbose usage.",
     );
   }
 
@@ -55,12 +56,9 @@ class HelpCommand extends Command {
       var (:option, :input) = args.getOption('command');
 
       var cmd = runner.commands.firstWhere(
-            (command) => command.name == input,
+        (command) => command.name == input,
         orElse: () {
-          throw ArgumentException(
-            'Input $input is not a known command.',
-            name,
-          );
+          throw ArgumentException('Input $input is not a known command.', name);
         },
       );
 

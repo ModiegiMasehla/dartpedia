@@ -1,0 +1,293 @@
+# Dartpedia CLI
+
+## Overview
+
+Dartpedia is a command-line application built with Dart that allows users to search for Wikipedia articles and retrieve article information directly from the terminal.
+
+The application communicates with the Wikipedia API and provides commands for searching articles, retrieving article content, and displaying help information. It also includes error handling and file logging to help track application errors.
+
+## Features
+
+* Search for Wikipedia articles
+* Retrieve Wikipedia article information
+* Command-line interface
+* Help command for available commands
+* HTTP error handling
+* Format exception handling
+* Error logging
+* Logs stored in a dedicated `logs` directory
+* Modular project structure
+
+## Project Structure
+
+```text
+dartpedia/
+├── cli/
+│   ├── bin/
+│   │   └── cli.dart
+│   └── lib/
+│       └── src/
+│           ├── commands/
+│           │   ├── search.dart
+│           │   ├── get_article.dart
+│           │   └── help.dart
+│           └── logger.dart
+│
+├── wikipedia/
+│   └── lib/
+│       └── src/
+│           └── api/
+│               └── search.dart
+│
+├── logs/
+├── pubspec.yaml
+└── README.md
+```
+
+## Requirements
+
+Before running the application, make sure you have the following installed:
+
+* Dart SDK
+* An internet connection
+
+Check that Dart is installed:
+
+```bash
+dart --version
+```
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+### 2. Navigate to the project
+
+```bash
+cd dartpedia
+```
+
+### 3. Install dependencies
+
+Run:
+
+```bash
+dart pub get
+```
+
+If the project contains multiple Dart packages, install dependencies in the relevant package directories as well.
+
+For example:
+
+```bash
+cd cli
+dart pub get
+```
+
+## Running the Application
+
+From the CLI package directory, run:
+
+```bash
+dart run bin/cli.dart <command>
+```
+
+For example:
+
+```bash
+dart run bin/cli.dart help
+```
+
+## Available Commands
+
+### Help
+
+Display information about the available commands.
+
+```bash
+dart run bin/cli.dart help
+```
+
+### Search
+
+Search Wikipedia for an article.
+
+```bash
+dart run bin/cli.dart search <search-term>
+```
+
+Example:
+
+```bash
+dart run bin/cli.dart search Dart
+```
+
+Example output:
+
+```text
+Search results:
+Dart (programming language) - https://en.wikipedia.org/wiki/Dart_(programming_language)
+```
+
+### Get Article
+
+Retrieve information about a specific Wikipedia article.
+
+```bash
+dart run bin/cli.dart get <article-name>
+```
+
+Example:
+
+```bash
+dart run bin/cli.dart get Dart
+```
+
+The application sends a request to the Wikipedia API and displays the retrieved article information in the terminal.
+
+## Error Handling
+
+The application handles errors that may occur while communicating with the Wikipedia API.
+
+The following exceptions are handled:
+
+* `HttpException`
+* `FormatException`
+
+For example, an HTTP error may occur if the API request fails or returns an unsuccessful status code.
+
+The application catches the exception and records the relevant information in the error log.
+
+## Logging
+
+Errors are logged in the `logs` directory.
+
+The log filename follows this format:
+
+```text
+YYYY-MM-DD_errors.txt
+```
+
+For example:
+
+```text
+2026-08-20_errors.txt
+```
+
+A log entry may look like:
+
+```text
+[2026-08-20 16:23:45.678 - errors] WARNING: HttpException: ...
+[2026-08-20 16:23:45.678 - errors] INFO: Usage: dart bin/cli.dart <command> [commandArg?] [...options?]
+```
+
+The logger records:
+
+* The date and time
+* The logger name
+* The log level
+* The error message
+* Usage information where applicable
+
+## Testing Error Logging
+
+Run a command that causes an actual error.
+
+For example:
+
+```bash
+dart run bin/cli.dart search <invalid-search-input>
+```
+
+Then check the logs directory:
+
+```bash
+ls logs
+```
+
+Open the error log:
+
+```bash
+cat logs/YYYY-MM-DD_errors.txt
+```
+
+You should see the logged error information if an exception was thrown.
+
+> Note: A search term that looks invalid may still return results from Wikipedia. If the Wikipedia API successfully returns a response, no exception will be thrown and no error will be logged.
+
+## Example Usage
+
+Search for an article:
+
+```bash
+dart run bin/cli.dart search Flutter
+```
+
+Search for another topic:
+
+```bash
+dart run bin/cli.dart search South Africa
+```
+
+Display help:
+
+```bash
+dart run bin/cli.dart help
+```
+
+## Technologies Used
+
+* Dart
+* Dart CLI
+* HTTP
+* Wikipedia API
+* Logging package
+
+## Error Logging Flow
+
+```text
+User runs command
+        │
+        ▼
+Command is processed
+        │
+        ▼
+Wikipedia API request
+        │
+        ├── Successful response ──► Display results
+        │
+        ▼
+Exception occurs
+        │
+        ▼
+Catch HttpException / FormatException
+        │
+        ▼
+Write error to logs directory
+        │
+        ▼
+Display usage information
+
+
+## Future Improvements
+
+Possible improvements for the project include:
+
+* Add more unit tests
+* Improve search result formatting
+* Add support for additional Wikipedia API endpoints
+* Add pagination for search results
+* Improve user-friendly error messages
+* Add configurable log levels
+* Add integration tests
+* Improve command validation
+
+## Author
+
+Dartpedia CLI Project
+
+Built using Dart as a command-line application for interacting with Wikipedia.
